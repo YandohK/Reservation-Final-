@@ -1,0 +1,41 @@
+{% extends 'layout.jinja2' %} {% block content %}
+
+<h2 class="title">Administrator Login</h2>
+<!-- SCRUM TEAM 6 ADDED CONTENT -->
+{% if error %}
+<p class="admin-error">{{ error }}</p>
+{% else %} {% if login_success %}
+<p>Printing Seating Chart...</p>
+<ul class="seating-chart">
+  {% for row in seating_chart %}
+  <li>{{ row }}</li>
+  {% endfor %}
+</ul>
+<p>Total Sales: ${{ total_sales }}</p>
+{% endif %} {% endif %}
+<!-- END SCRUM TEAM 6 ADDED CONTENT -->
+<form method="POST" action="/admin">
+  {{ form.csrf_token }}
+  <div class="form-field">
+    {{ form.username.label }} {{ form.username }} {% if form.username.errors %}
+    <ul class="errors">
+      {% for error in form.username.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  <div class="form-field">
+    {{ form.password.label }} {{ form.password }} {% if form.password.errors %}
+    <ul class="errors">
+      {% for error in form.password.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  {{ form.login }}
+</form>
+
+{% endblock %}
